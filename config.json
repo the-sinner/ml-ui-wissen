@@ -1,0 +1,9 @@
+{
+    "options": [
+      "Text Inference",
+      "Text Generation",
+      "Image Generation",
+      "Object Detection"
+    ]
+  }
+  

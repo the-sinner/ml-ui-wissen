@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask App</title>
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>ML Web UI</h1>
+    <img class="logo" src="{{ url_for('static', filename='wissen_logo.png') }}" alt="Logo">
+    
+    <!-- <div>
+        <img class="center-image" src="{{ url_for('static', filename='background.jpg') }}" alt="Image">
+    </div>
+     -->
+    <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="formSubmit(event)">
+        <label for="">Choose ML Task : </label>
+        <select name="ml-task">
+            {% for option in options %}
+                <option value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="">Upload file: </label>
+        <input id = "file-input" type="file" name="file" accept=".png, .jpg, .jpeg" onchange="checkFile()">
+        <br>
+        OR 
+        <br>
+        <label for="">Enter media URL : </label>
+        <input id="url-input" type="text" name="url" >
+        <br>
+        <input id="submit-button" type="submit" value="Upload" disabled>
+    </form>
+
+    {%if output %}
+    <div>
+        <img class="center-image" src="{{ processed_file }}" alt="Image">
+        <!-- <h1>Output</h1> -->
+    </div>
+    {% endif %}
+
+    <script>
+        function checkFile() {
+            let inputValue = checkInput();
+            // var message = document.getElementById('message');
+            let submitButton = document.getElementById("submit-button");
+            
+            if (inputValue) {
+                // message.innerHTML = "File uploaded successfully!";
+                submitButton.disabled = false; // Enable the submit button
+                showImage();
+            } else {
+                submitButton.disabled = true; // Disable the submit button
+            }
+        }
+
+        function formSubmit(e) {
+        e.preventDefault(); // Prevent default form submission behavior
+        let inputValue = checkInput();
+        // let submitButton = document.getElementById('submit-button');
+        
+        if (inputValue) {
+            // Perform your custom form submission logic here
+            // Example: Submit the form programmatically
+            e.target.submit();
+            alert("File uploaded successfully!")
+        } else {
+            // Handle the case when no file is selected
+            // console.log("Please se lect a file.");
+            alert("No File uploaded!")
+        }
+    }
+
+    function checkInput() {
+        let fileInput = document.getElementById("file-input");
+        let fileUploaded = fileInput.files.length > 0;
+
+        let urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+        let urlInput = document.getElementById("url-input");
+        let urlTrue = urlPattern.test(urlInput.value);
+
+        return fileUploaded || urlTrue;
+    }
+
+    </script>
+    
+</body>
+</html>

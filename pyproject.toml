@@ -1,0 +1,17 @@
+[project]
+name = "ml-ui-wissen"
+version = "0.1.0"
+description = "Add a short description here"
+authors = [
+    { name = "Shalabh Agarwal", email = "shalabhagarwal1024@gmail.com" }
+]
+dependencies = ["flask~=2.3.2", "pillow~=9.5.0"]
+readme = "README.md"
+requires-python = ">= 3.10"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
